@@ -17,4 +17,4 @@ samples, guidance on mobile development, and a full API reference.
 
 ![alt text](https://github.com/wisnupratama24/beauty-app/blob/main/assets/images/preview-1.png?raw=true)
 
-![alt text](https://github.com/wisnupratama24/beauty-app/blob/main/assets/images/preview-2.png?raw=true)
+![alt text](https://github.com/wisnupratama24/beauty-app/blob/main/assets/images/preview-3.png?raw=true)
