@@ -55,23 +55,6 @@ class _DetailScreenState extends State<DetailScreen> {
                   ],
                 ),
               )
-              // SafeArea(
-              //   child: Container(
-              //     margin: EdgeInsets.only(left: 25),
-              //     child: Column(
-              //       mainAxisAlignment: MainAxisAlignment.start,
-              //       crossAxisAlignment: CrossAxisAlignment.start,
-              //       children: [
-              //         CardImage(
-              //             size: size,
-              //             sizeHeader: sizeHeader,
-              //             detailSalon: detailSalon),
-              //         CardImageDesc(size: size, detailSalon: detailSalon),
-              //         TabBarService(),
-              //       ],
-              //     ),
-              //   ),
-              // ),
             ],
           ),
         ),

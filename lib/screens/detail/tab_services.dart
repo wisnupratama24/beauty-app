@@ -1,5 +1,8 @@
+import 'package:beauty_app/constants/colors.dart';
+import 'package:beauty_app/models/services.dart';
 import 'package:beauty_app/widgets/card_label.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class TabBarService extends StatefulWidget {
   @override
@@ -9,8 +12,26 @@ class TabBarService extends StatefulWidget {
 class _TabBarServiceState extends State<TabBarService>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
-
   int _currentIndex = 0;
+
+  List<Services> listServices = [
+    Services(
+        title: 'Hybird Removal',
+        subTitle: 'Menicure 1h',
+        price: '12',
+        isDics: true),
+    Services(
+        title: 'Japanesse Menicure',
+        subTitle: 'Menicure 1h 30m',
+        price: '16',
+        isDics: false),
+    Services(
+        title: 'Pedicure SPA',
+        subTitle: 'Pedicure 30m',
+        price: '32',
+        isDics: true),
+  ];
+
   @override
   void initState() {
     _tabController = TabController(length: 4, vsync: this);
@@ -106,18 +127,31 @@ class _TabBarServiceState extends State<TabBarService>
                   child: Text('Details Tab'),
                 ),
                 Container(
-                  child: ListView(
+                  child: Column(
                     children: [
                       CardLabel(
                         boldText: 'Services',
                         lightText: 'Top ',
                         moreButton: false,
                       ),
-                      ListView.builder(
-                          itemCount: 4,
-                          itemBuilder: (context, index) {
-                            return Text('ok');
-                          })
+                      Expanded(
+                        child: Container(
+                          height: size.height * 0.5,
+                          child: ListView.builder(
+                              scrollDirection: Axis.vertical,
+                              shrinkWrap: true,
+                              physics: ScrollPhysics(),
+                              itemCount: listServices.length,
+                              itemBuilder: (context, index) {
+                                return ItemListTab(
+                                  title: listServices[index].title,
+                                  subTitle: listServices[index].subTitle,
+                                  price: listServices[index].price,
+                                  isDisc: listServices[index].isDics,
+                                );
+                              }),
+                        ),
+                      )
                     ],
                   ),
                 ),
@@ -129,6 +163,96 @@ class _TabBarServiceState extends State<TabBarService>
                 ),
               ],
             ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class ItemListTab extends StatelessWidget {
+  final String title;
+  final String subTitle;
+  final String price;
+  final bool isDisc;
+
+  const ItemListTab({
+    Key key,
+    this.title,
+    this.subTitle,
+    this.price,
+    this.isDisc,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(bottom: 10, right: 25, top: 5),
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      decoration: BoxDecoration(
+          border: Border.all(width: 1.5, color: Colors.grey[200]),
+          borderRadius: BorderRadius.circular(10)),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Text(
+                    title,
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+                  ),
+                  SizedBox(
+                    width: 4,
+                  ),
+                  isDisc
+                      ? SvgPicture.asset('assets/icons/disc.svg', height: 16)
+                      : SizedBox(
+                          width: 0,
+                        )
+                ],
+              ),
+              Text(
+                subTitle,
+                style: TextStyle(fontWeight: FontWeight.w300, fontSize: 11),
+              )
+            ],
+          ),
+          Row(
+            children: [
+              RichText(
+                  text: TextSpan(
+                      style: TextStyle(color: Colors.grey[500], fontSize: 12),
+                      text: '\$ ',
+                      children: [
+                    TextSpan(
+                        text: price,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 22))
+                  ])),
+              SizedBox(
+                width: 10,
+              ),
+              Container(
+                padding: EdgeInsets.all(5),
+                decoration: BoxDecoration(
+                    color: kPrimaryColor,
+                    borderRadius: BorderRadius.circular(15)),
+                child: IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.shopping_cart,
+                    color: Colors.white,
+                  ),
+                ),
+              )
+            ],
           )
         ],
       ),
